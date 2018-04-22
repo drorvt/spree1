@@ -15,10 +15,13 @@ ADD Gemfile* $APP_HOME/
 RUN bundle install
 
 ADD . $APP_HOME
-
-RUN rails db:create
+###If datbase does not exist - uncomment the following line
+#RUN rails db:create
+###The following line will 
 RUN rails db:migrate
-RUN rails db:seed AUTO_ACCEPT=1
-RUN rails spree_sample:load
+### Create tables and other objects for the application
+#RUN rails db:seed AUTO_ACCEPT=1
+### This will load sample data (some products, orders, etc) into the database. No need to run for exsiting database
+#RUN rails spree_sample:load
 
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
