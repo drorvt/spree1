@@ -5,6 +5,7 @@ MAINTAINER Eyal.stoler@kenshoo.com
 RUN apt-get update -qq && apt-get install -y build-essential libmysqlclient-dev nodejs
 RUN apt-get install -y imagemagick
 RUN apt-get update
+RUN gem install mysql2
 
 ENV APP_HOME /app
 RUN mkdir $APP_HOME
@@ -15,6 +16,7 @@ RUN bundle install
 
 ADD . $APP_HOME
 
+RUN rails db:create
 RUN rails db:migrate
 RUN rails db:seed AUTO_ACCEPT=1
 RUN rails spree_sample:load
